@@ -303,21 +303,21 @@ public class LinkedBinaryTreeTests {
 		BTPosition<Integer> right2 = tree.insertRight(right,12);
 		assertEquals("Tamanho da arvore.", 4	, tree.size());
 		assertEquals("Remove um nodo com 1 filho na direita.", new Integer(11)	, tree.remove(right));
-		assertEquals("Novo nodo da direita.", new Integer(12)	, tree.root().getRight());
+		assertEquals("Novo nodo da direita.", new Integer(12)	, tree.root().getRight().getElement());
 		assertEquals("Tamanho da arvore.", 3	, tree.size());
 		
 		
 		BTPosition<Integer> left2 = tree.insertLeft(left,8);
 		assertEquals("Tamanho da arvore.", 4	, tree.size());
 		assertEquals("Remove um nodo com 1 filho na esquerda.", new Integer(9)	, tree.remove(left));
-		assertEquals("Novo nodo da esquerda.", new Integer(8)	, tree.root().getLeft());
+		assertEquals("Novo nodo da esquerda.", new Integer(8)	, tree.root().getLeft().getElement());
 		assertEquals("Tamanho da arvore.", 3	, tree.size());
 		
 		assertEquals("Remove um nodo com nenhum filho .", new Integer(8)	, tree.remove(root.getLeft()));
 		assertEquals("Tamanho da arvore.", 2	, tree.size());
 
 		assertEquals("Remove a raiz da arvore .", new Integer(10)	, tree.remove(tree.root()));
-		assertEquals("Nova raiz .", new Integer(12)	, tree.remove(tree.root()));
+		assertEquals("Nova raiz .", new Integer(12)	, (tree.root().getElement()));
 		assertEquals("Tamanho da arvore.", 1	, tree.size());
 		
 	}

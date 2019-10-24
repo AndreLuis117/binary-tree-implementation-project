@@ -1,26 +1,27 @@
 package br.univille.estd.binarytree;
 
 /**
- * Implementacao de uma Ã¡rvore binÃ¡ria usando estrutura encadeada
- * @author leandersonandre
+ * Implementacao de uma árvore binária usando estrutura encadeada
+ * 
+ * @author André Luis Cardoso 
  *
  * @param <E>
  */
 public class LinkedBinaryTree<E> {
 	
 	protected BTPosition<E> root; // Referencia para a raiz
-	protected int size;           // Numero de nodos
+	protected int size;           // Número de nodos
 	
 	/**
 	 * Construtor de uma Ã¡rvore vazia
 	 */
 	public LinkedBinaryTree() {
-		root = null; // inicia com uma Ã¡rvore vazia
+		root = null; // inicia com uma árvore vazia
 		size = 0;
 	}
 	
 	/**
-	 * Retorna o numero de nodos da Ã¡rvore
+	 * Retorna o numero de nodos da árvore
 	 * @return
 	 */
 	public int size() {
@@ -255,28 +256,73 @@ public class LinkedBinaryTree<E> {
 	 */
 	public E remove(BTPosition<E> v) throws InvalidPositionException{
 		
+		E temp;
+		
 		if(v == null) {
 			throw new InvalidPositionException("Nodo invalido");
 		}
 		else {
-			
-			try {
-				if(sibling(v) != null) {
-					throw new InvalidPositionException("Nodo com dois filhos nao pode ser removido");
-				}
-			}
-			catch(Exception e){
-				if(e instanceof BoundaryViolationException) {
+					var right = v.getRight();
+					var left = v.getLeft();
 					var parent = v.getParent();
-					parent.setRight(v.getRight());
-					parent.setLeft(v.getLeft());
-				}
+					temp = v.getElement();
+					if(left != null && right != null) {
+						throw new InvalidPositionException("Nodo com dois filhos nao pode ser removido");
+					}
+					
+					if(isRoot(v)) {
+						temp = v.getElement();
+						if(hasLeft(v)) {
+							v = v.getLeft();
+							v.setParent(null);
+							root = v;
+							size = size - 1;
+						}else if(hasRight(v)) {
+							v = v.getRight();
+							v.setParent(null);
+							root = v;
+							size = size - 1;
+						}else {
+							v = null;
+							root = null;
+						}
+					}else {
+						if(parent.getLeft().equals(v)) {
+							if(right != null) {
+								v.getParent().setLeft(right);
+								if(v.getParent().getLeft() != null) {
+									v.getParent().getLeft().setParent(v.getParent());
+								}
+								size = size - 1;
+							}else {
+								v.getParent().setLeft(left);
+								if(v.getParent().getLeft() != null) {
+									v.getParent().getLeft().setParent(v.getParent());
+								}
+								size = size - 1;
+							}
+						}else {
+							if(right != null) {
+								v.getParent().setRight(right);
+								if(v.getParent().getLeft() != null) {
+									v.getParent().getRight().setParent(v.getParent());
+								}
+								size = size - 1;
+							}else {
+								v.getParent().setRight(left);
+								if(v.getParent().getLeft() != null) {
+									v.getParent().getRight().setParent(v.getParent());
+								}
+								size = size - 1;
+							}
+						}
+					}
+					
+					
+				
 			}
-			
-		}
-		
 
-		return v.getElement();
+		return temp;
 	}
 	
 	/**
