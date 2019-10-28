@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.univille.estd.binarytree;
 
 /**
