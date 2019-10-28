@@ -25,11 +25,7 @@ public class LinkedBinaryTree<E> {
 	 * @return
 	 */
 	public int size() {
-		if(root != null) {
-			return size;
-		}else {
-			throw new EmptyTreeException("Arvore vazia");
-		}
+		return size;
 	}
 	
 	/**
@@ -114,6 +110,9 @@ public class LinkedBinaryTree<E> {
 	 * Retorna a raiz da Ã¡rvore
 	 */
 	public BTPosition<E> root() throws EmptyTreeException{
+		if(root == null ) {
+			throw new EmptyTreeException("A Arvore está vazia");
+		}
 		return root;
 	}
 	
